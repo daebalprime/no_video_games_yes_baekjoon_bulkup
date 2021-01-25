@@ -1,12 +1,14 @@
-package Bronze.bj_11283;
+package Bronze.bj_15439;
 
 import java.util.Scanner;
 
 public class Main {
+
 	public static void main(String[] args) {
+		// TODO Auto-generated method stub
 		Scanner sc = new Scanner(System.in);
-//		System.out.println((char)(4146));
-		System.out.println((int)sc.next().charAt(0)-(int)'가'+1);
-		sc.close();
+		int a = sc.nextInt();
+		System.out.println(a*(a-1));
 	}
+
 }
