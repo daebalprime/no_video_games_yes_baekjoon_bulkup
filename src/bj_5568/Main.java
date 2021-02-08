@@ -24,6 +24,7 @@ public class Main {
 //			System.out.println();
 			s.add(Integer.parseInt(sb.toString()));
 //			System.out.println("------------");
+			return;
 		}
 		for(int i = 0; i < K; i++) {
 			if(!isSelected[i]) {
@@ -39,12 +40,18 @@ public class Main {
 	static void combination(int n/*count*/, int start, int[] arr) {
 		if(n==K) {
 			//do permutation
+//			System.out.println("--------card picks");
+//			for(int a : arr) {
+//				System.out.print(a+" ");
+//			}
+//			System.out.println();
+//			System.out.println("------------------");
 			permutation(K, arr);
 			return;
 		}
-		for(int i = start+1; i < N; i++) {
+		for(int i = start; i < N; i++) {
 			arr[n] = i;
-			combination(n+1, i, arr);
+			combination(n+1, i+1, arr);
 		}
 	}
 	
@@ -68,7 +75,7 @@ public class Main {
 		
 		combination(0,0,new int[K]);
 		// pick combi & permutation
-		permutation(K,new int[K]);
+//		permutation(K,new int[K]);
 		
 		// push set
 		
