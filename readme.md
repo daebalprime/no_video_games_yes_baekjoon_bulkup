@@ -1,4 +1,4 @@
-# BAEKJOON JUDGE BULKUP WITH BRONZE PROBLEMS
+# BAEKJOON JUDGE BULKUP
 
 ## Info
 - Daeyeon Kim, daebalprime@gmail.com
