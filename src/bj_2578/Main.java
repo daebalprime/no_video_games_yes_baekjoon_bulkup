@@ -7,23 +7,39 @@ public class Main {
 
 	public static void main(String[] args) throws Exception{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-		int N = Integer.parseInt(br.readLine());
-		for(int i = 0; i < N; i++) {
+		HashMap<Integer, int[]> bingo = new HashMap<>();
+		for(int j = 0; j < 5; j++) {
 			StringTokenizer st = new StringTokenizer(br.readLine());
-			int sz = Integer.parseInt(st.nextToken());
-			long a = 0, b = 0;
-			for(int x = 0; x < sz; x++) {
-				a += 1<<((Integer.parseInt(st.nextToken())-1)*10);
+			for(int i = 0; i < 5; i++) {
+				bingo.put(Integer.parseInt(st.nextToken()),new int[] {i,j});
 			}
-			st = new StringTokenizer(br.readLine());
-			sz = Integer.parseInt(st.nextToken());
-			for(int x = 0; x < sz; x++) {
-				b += 1<<((Integer.parseInt(st.nextToken())-1)*10);
-			}
-			if(a>b) System.out.println("A");
-			else if(a<b) System.out.println("B");
-			else System.out.println("D");
 		}
+		int[] col = new int[5];
+		int[] row = new int[5];
+		int[] dia1 = new int[9];
+		int[] dia2 = new int[9];
+		int tot = 0;
+		for(int j = 0; j < 5; j++) {
+			StringTokenizer st = new StringTokenizer(br.readLine());
+			for(int i = 0; i < 5; i++) {// find
+				int[] curr = bingo.get( Integer.parseInt(st.nextToken()));
+				int x = curr[0];
+				int y = curr[1];
+				col[x]++;
+				if(col[x] == 5) tot++;
+				row[y]++;
+				if(row[y] == 5) tot++;
+				dia1[4+y-x]++;
+				if(dia1[4+(y-x)] == 5) tot++;
+				dia2[x+y]++;
+				if(dia2[x+y] == 5) tot++;
+				if(tot >= 3) {
+					System.out.println(5*j + i + 1);
+					System.exit(0);
+				}
+			}
+		}
+		br.close();
 	}
+
 }
