@@ -8,38 +8,44 @@ public class Main {
 	public static void main(String[] args) throws Exception{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-//		int N = Integer.parseInt(st.nextToken());
-		HashMap<String, LinkedList<String>> hm = new HashMap<>();
 		int N = Integer.parseInt(br.readLine());
+		HashMap<String, LinkedList<String>> hm = new HashMap<>();
+		PriorityQueue<String> pq = new PriorityQueue<>();
 		for(int i = 0; i < N; i++) {
 			StringTokenizer st = new StringTokenizer(br.readLine());
-			String p = st.nextToken();
+			String src = st.nextToken();
 			st.nextToken();
-			String c = st.nextToken();
-			if(!hm.containsKey(p)) {
-				hm.put(p, new LinkedList<String>());
+			String dest = st.nextToken();
+			if(!hm.containsKey(src)) {
+				hm.put(src, new LinkedList<>());
 			}
-			hm.get(p).add(c);
+			hm.get(src).offer(dest);
 		}
-		
+		Stack<String> stk = new Stack<>();
+		stk.push("Baba");
 		StringBuilder sb = new StringBuilder();
-		PriorityQueue<String> pq = new PriorityQueue<>();
-		dfs(hm, "Baba", pq);
+		while(!stk.isEmpty()) {
+			String curr = stk.pop();
+			if(!hm.containsKey(curr))break;
+			LinkedList<String> next = hm.get(curr);
+			while(!next.isEmpty()) {
+				String s = next.poll();
+				stk.push(s);
+				pq.offer(s);
+			}
+		}
+		String prev = "";
 		while(!pq.isEmpty()) {
-			sb.append(pq.poll()+"\n");
+			String curr = pq.poll();
+			if(!prev.equals(curr)) {
+				sb.append(curr+"\n");
+			}
+			prev = curr;
 		}
 		bw.write(sb.toString());
 		bw.flush();
 		br.close();
 		bw.close();
-	}
-	
-	static void dfs(HashMap<String, LinkedList<String>> hm, String curr, PriorityQueue<String> pq) {
-		if(!hm.containsKey(curr)) return;
-		for(String s : hm.get(curr)) {
-			pq.offer(s);
-			dfs(hm, s, pq);
-		}
 	}
 
 }
