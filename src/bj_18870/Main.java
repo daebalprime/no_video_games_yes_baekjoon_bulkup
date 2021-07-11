@@ -4,26 +4,25 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
-
 	public static void main(String[] args) throws Exception{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-		PriorityQueue<int[]> pq = new PriorityQueue<>((o1,o2)->(Integer.compare(o1[0], o2[0])));
 		int N = Integer.parseInt(br.readLine());
+		int[][] nums = new int[N][];
 		StringTokenizer st = new StringTokenizer(br.readLine());
 		for(int i = 0; i < N; i++) {
-			pq.offer(new int[] { Integer.parseInt(st.nextToken()), i});
+			nums[i] = new int[] { Integer.parseInt(st.nextToken()), i};
 		}
+		Arrays.sort(nums, (o1,o2)-> Integer.compare(o1[0], o2[0]));
 		int[] answer = new int[N];
 		int prev = Integer.MIN_VALUE;
 		int cnt = -1;
-		while(!pq.isEmpty()) {
-			int[] tmp = pq.poll();
-			if(tmp[0] != prev) {
+		for(int[] ia : nums) {
+			if(ia[0] != prev) {
 				cnt++;
-				prev = tmp[0];
+				prev = ia[0];
 			}
-			answer[tmp[1]] = cnt; 
+			answer[ia[1]] = cnt; 
 		}
 		StringBuilder sb = new StringBuilder();
 		for(int i : answer) {

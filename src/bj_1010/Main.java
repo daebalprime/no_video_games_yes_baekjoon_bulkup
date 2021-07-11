@@ -1,24 +1,29 @@
 package bj_1010;
-import java.util.Scanner;
+
+import java.io.*;
+import java.util.*;
 
 public class Main {
 
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
-		int T = sc.nextInt();
+	public static void main(String[] args) throws Exception{
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+		int T = Integer.parseInt(br.readLine());
 		for(int tc = 0; tc < T; tc++) {
-			long answer = 1;
-			int N = sc.nextInt();
-			int M = sc.nextInt();
-			N = Math.min(N, M-N);
-			for(int i = 0; i < N; i++) {
-				answer *= (M-i);
-				answer /= (i+1);
+			StringTokenizer st = new StringTokenizer(br.readLine());
+			int M = Integer.parseInt(st.nextToken());
+			int N = Integer.parseInt(st.nextToken());
+			if(M==0 || M==N) {
+				System.out.println("1");
+				continue;
 			}
-//			for(int i = 1; i <= N; i++) {
-//				answer /= i;
-//			}
+			int answer = 1;
+			for(int i = 0; i < M; i++) {
+				answer *= (N-i);
+				answer /= (1+i);
+			}
 			System.out.println(answer);
 		}
+		br.close();
 	}
 }
